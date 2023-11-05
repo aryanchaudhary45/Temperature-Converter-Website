@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <!-- Add Bootstrap CSS Link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add Custom CSS -->
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+        
+        .container {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        .card {
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: #007BFF;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="background-color: lightgray;">
+        <h1 class="text-center my-4">Temperature Converter</h1>
+        <div class="row justify-content-center" style="border-radius: 2em;">
+            <div class="col-md-6">
+                <div class="card" style="border-radius: 1.5em;">
+                    <div class="card-body">
+                        <form id="converter-form">
+                            <div class="form-group">
+                                <label for="inputUnit">Select Input Unit</label>
+                                <select class="form-control" id="inputUnit">
+                                    <option value="celsius">Celsius</option>
+                                    <option value="fahrenheit">Fahrenheit</option>
+                                    <option value="kelvin">Kelvin</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="temperature">Enter Temperature</label>
+                                <input type="number" class="form-control" id="temperature" placeholder="Enter temperature">
+                            </div>
+                            <div class="form-group">
+                                <label for="outputUnit">Select Output Unit</label>
+                                <select class="form-control" id="outputUnit">
+                                    <option value="celsius">Celsius</option>
+                                    <option value="fahrenheit">Fahrenheit</option>
+                                    <option value="kelvin">Kelvin</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Convert</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <div class="card" style="border-radius: 2em;">
+                    <div class="card-body">
+                        <h4 class="text-center">Result</h4>
+                        <p id="result" class="text-center"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add Custom JavaScript -->
+    <script>
+        document.getElementById('converter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const inputUnit = document.getElementById('inputUnit').value;
+            const outputUnit = document.getElementById('outputUnit').value;
+            const temperature = parseFloat(document.getElementById('temperature').value);
+    
+            let result;
+    
+            if (inputUnit === 'celsius' && outputUnit === 'fahrenheit') {
+                result = (temperature * 9/5) + 32;
+            } else if (inputUnit === 'celsius' && outputUnit === 'kelvin') {
+                result = temperature + 273.15;
+            } else if (inputUnit === 'fahrenheit' && outputUnit === 'celsius') {
+                result = (temperature - 32) * 5/9;
+            } else if (inputUnit === 'fahrenheit' && outputUnit === 'kelvin') {
+                result = (temperature - 32) * 5/9 + 273.15;
+            } else if (inputUnit === 'kelvin' && outputUnit === 'celsius') {
+                result = temperature - 273.15;
+            } else if (inputUnit === 'kelvin' && outputUnit === 'fahrenheit') {
+                result = (temperature - 273.15) * 9/5 + 32;
+            } else {
+                result = temperature;
+            }
+    
+            document.getElementById('result').textContent = `Result: ${result.toFixed(2)} ${outputUnit}`;
+        });
+    </script>
+</body>
+</html>
